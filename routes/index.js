@@ -61,7 +61,7 @@ router.get('/error', (req, res, next)=>{
 router.route('/login')
   .post(passport.authenticate('local',{failureRedirect: '/error'}), (req ,res, next)=>{
     req.session.user = req.user;
-    res.redirect('/');
+    res.redirect('/users/'+req.user._id);
   });
 router.route('/logout')
   .get((req, res, next)=>{

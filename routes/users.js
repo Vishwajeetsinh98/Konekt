@@ -15,11 +15,32 @@ router.use((req, res, next)=>{
   }
 });
 
+router.get('/:userId', (req, res, next)=>{
+  User.findById(req.params.userId)
+  .populate('notifications')
+  .populate('messages')
+  .populate('requests')
+  .populate('friends', 'name photo _id')
+  .populate('posts')
+  .exec((err, user)=>{
+    if(err){
+      console.log(err);
+      var error = new Error('Unable To Get User');
+      error.status = 500;
+      next(error);
+    } else{
+      res.json(user);
+    }
+  })
+});
+
 router.post('/addnewpost', (req, res, next)=>{
   var newPost = new Post({
-    who: req.session.user,
+    who: req.session.user._id,
+    name: req.session.user.name,
     content: req.body.content,
     photo: req.file ? req.file.filename : null,
+    comments: [],
     tags: [req.body.tags],
     likes: [],
     comments: null
@@ -38,13 +59,21 @@ router.post('/addnewpost', (req, res, next)=>{
           error.status = 500;
           next(error);
         } else{
-          res.send('Posted');
+          User.update({_id: {$in: req.session.user.friends}}, {$push: {notifications: post._id}}, (err)=>{
+            if(err){
+              console.log(err);
+              var error = new Error('Cant Save Post');
+              error.status = 500;
+              next(error);
+            } else{
+              res.send('Posted');
+            }
+          })
         }
       })
     }
   });
 });
-
 router.post('/request', (req, res, next)=>{
   var newRequest = new Request({
     from: req.session.user._id,
@@ -101,6 +130,6 @@ router.put('/request', (req, res, next)=>{
       })
     }
   })
-})
+});
 
 module.exports = router;

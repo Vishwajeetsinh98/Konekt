@@ -8,6 +8,7 @@ var Post = new mongoose.Schema({
     type: ObjectId,
     ref: 'User'
   },
+  name: String,
   content: String,
   photo: String,
   tags: [{

@@ -7,6 +7,7 @@ var bodyParser = require('body-parser');
 var passport = require('passport');
 var routes = require('./routes/index');
 var users = require('./routes/users');
+var post = require('./routes/post');
 var dotenv = require('dotenv').config();
 var bluebird = require('bluebird');
 var mongoose = require('mongoose');
@@ -56,6 +57,7 @@ app.use(passport.session());
 
 app.use('/', routes);
 app.use('/users', users);
+app.use('/post', post);
 
 
 // catch 404 and forward to error handler

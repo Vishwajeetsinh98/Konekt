@@ -6,7 +6,7 @@ if(process.platform == 'win32'){
 } else{
   bcrypt = Promise.promisifyAll(require('bcrypt'));
 }
-
+var deepPopulate = require('mongoose-deep-populate')(mongoose);
 var SALT = 10;
 var Schema = mongoose.Schema;
 var ObjectId = Schema.Types.ObjectId;
@@ -52,5 +52,4 @@ User.pre('save', function(next){
   user.password = hash;
   next();
 });
-
 module.exports = mongoose.model('User', User);
