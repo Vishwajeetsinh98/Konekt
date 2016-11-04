@@ -11,6 +11,9 @@ var Message = new mongoose.Schema({
     type: ObjectId,
     ref: 'User'
   },
+  fromName: String,
+  fromImage: String,
+  toName: String,
   content: String,
   when: Date
 });

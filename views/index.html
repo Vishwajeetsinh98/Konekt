@@ -1,52 +1,171 @@
 <html>
   <head>
-    <title>Home | Konekt</title>
+    <title>Username Timeline | Konekt</title>
     <link rel="stylesheet" href="../public/stylesheets/materialize.min.css">
     <link rel="stylesheet" href="../public/stylesheets/style.css">
     <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
     <script src="../public/javascripts/jquery.min.js"></script>
     <script src="../public/javascripts/script.js"></script>
     <script src="../public/javascripts/materialize.min.js"></script>
   </head>
-  <body>
+  <body class="grey-back">
+    <ul id="dropdown1" class="dropdown-content">
+      <li><a href="/profile/<%=_id%>">Profile</a></li>
+      <li><a href="/logout">Logout</a></li>
+    </ul>
+    <nav>
+      <div class="nav-wrapper">
+        <a href="/" class="brand-logo"><img src="../public/images/konekt.png" style="width: 80%;margin-left: 5px"></a>
+        <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+        <ul class="right hide-on-med-and-down">
+          <li><a class="dropdown-button" href="#!" data-activates="dropdown1"><%=name%><i class="material-icons right">arrow_drop_down</i></a></li>
+        </ul>
+        <ul class="side-nav" id="mobile-demo">
+          <li><a href="/profile/<%=_id%>">Profile</a></li>
+          <li><a href="/logout">Logout</a></li>
+        </ul>
+      </div>
+    </nav>
     <div class="row">
-      <div class="col s6" id="index-left">
-        <img src="../public/images/konekt-logo.png">
-        <p>
-          Konekt is a user friendly social networking site that lets you upload images and text posts and share them among friends so you never miss a moment.
-        </p>
-      </div>
-      <div class="col s6" id="index-right">
-        <div class="col s12">
-          <ul class="tabs">
-            <li class="tab col s3"><a href="#test1" class="active">Sign Up</a></li>
-            <li class="tab col s3"><a href="#test2">Login</a></li>
-          </ul>
+      <div class="photos col s10 push-l1 push-m1 push-s1" style="margin-top: 10px;border-radius: 5px;background-image: url(../public/uploads/d801b8acbcec9b0ae918093945f38103.jpg)">
+        <div class="overlay1" style="height: 400px">
+          <a href="#" id="changecover-trigger">Change Cover</a>
         </div>
-          <div id="test1" class="col s12">
-            <form method="post" action="/register" enctype="multipart/form-data" align="center">
-              <input name="name" type="text" placeholder="Name" class="custom-input">
-              <input name="username" type="email" placeholder="Email" class="custom-input">
-              <input name="password" type="password" placeholder="Password" class="custom-input">
-              <input name="phone" type="number" placeholder="Phone" class="custom-input">
-              <select name="gender" class="custom-input-no-border">
-                <option disabled selected>Gender</option>
-                <option>Male</option>
-                <option>Female</option>
-              </select>
-              Profile Photo: <input type="file" name="image" placeholder="Enter Profile Photo"><br><br>
-              <button class="custom-submit">Submit</button>
-            </form>
+        <h5>Username</h5>
+        <div class="profile-photo z-depth-2 center" style="background-image: url(../public/uploads/d801b8acbcec9b0ae918093945f38103.jpg)">
+          <div class="overlay">
+            <a href="#" id="changepp-trigger">Change Profile Picture</a>
           </div>
-          <div id="test2" class="col s12">
-            <form method="post" action="/login" align="center">
-              <input name="username" type="email" placeholder="Email" class="custom-input">
-              <input name="password" type="password" placeholder="Password" class="custom-input"><br><br>
-              <button class="custom-submit">Submit</button>
-            </form>
-          </div>
+        </div>
       </div>
+    </div>
+    <div class="row">
+      <div class="col s5 push-s1 push-m1 push-l1" style="margin-top: 5px;">
+        <div class="card horizontal" style="height: 200px">
+          <div class="card-stacked">
+            <div class="card-content row">
+              <div class="col s2">
+                <img src="../public/uploads/0dde95d7da1c51aa096e5f91e3f28a28.jpg" style="width: 100%; border-radius: 5px">
+              </div>
+              <div class="col s10">
+                <input type="text" id="addnewpost" placeholder="What's On Your Mind?">
+              </div>
+            </div>
+            <div class="card-action">
+              <button id="post-submit" class="custom-submit right">Post</button>
+            </div>
+          </div>
+        </div>
+        <div class="post">
+          <div class="card">
+            <div class="card-content">
+              <input value="postid">
+              <div class="row post-uploader">
+                <div class="col s2">
+                  <img src="../public/uploads/0dde95d7da1c51aa096e5f91e3f28a28.jpg" style="width: 100%; border-radius: 5px">
+                </div>
+                <div class="col s10">
+                  <p style="color: #88cf02"><a href="/users/userid">Username</a><br><span style="color: lightgrey;font-size: 12px">2hr</span></p>
+                </div>
+              </div>
+              <div class="post-body" style="font-size: 130%;margin-left: 100px">
+                Enjoyed A Lot With Friends!
+              </div>
+              <div class="post-image center">
+                <img src="../public/uploads/d801b8acbcec9b0ae918093945f38103.jpg" style="width: 60%">
+              </div><br>
+              <div class="post-likes-data left" style="color: grey">
+                <span class="post-likes">236</span> Likes, <span class="post-coments">13</span> Comments
+              </div><br>
+              <hr>
+              <img src="../public/images/thumb-up.png" style="width: 5%" id="post-like"> Like
+              <a class="comments-trigger" href="#comments-modal"><img src="../public/images/chat.png" style="width: 5%;margin-left: 10%" id="post-comment"> Comments</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col s4 push-s2 push-m2 push-l2" style="margin-top: 5px">
+        <div class="row notifications">
+          <div class="card" style="padding: 2%">
+            <img src="../public/images/world.png" style="width: 10%;"> <span style="font-size: 130%">&nbsp&nbsp&nbspNotifications</span>
+            <hr>
+            <div id="notifications-holder">
+              <div class="notification">
+                <div class="row notification-uploader">
+                  <div class="col s2">
+                    <img src="../public/uploads/0dde95d7da1c51aa096e5f91e3f28a28.jpg" style="width: 100%; border-radius: 5px">
+                  </div>
+                  <div class="col s10">
+                    <p style="color: #88cf02"><a href="/users/userid">Username</a><span> <a href="post/postid" style="color: black">Uploaded A New Post postid</a></span></p>
+                  </div>
+                </div>
+                <hr>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row chats">
+          <div class="card" style="padding: 2%">
+            <img src="../public/images/chat (1).png" style="width: 10%;"> <span style="font-size: 130%">&nbsp&nbsp&nbspMessages</span>
+            <hr>
+            <div id="chats-holder">
+              <div class="chat">
+                <div class="row chat-uploader">
+                  <div class="col s2">
+                    <img src="../public/uploads/0dde95d7da1c51aa096e5f91e3f28a28.jpg" style="width: 100%; border-radius: 5px">
+                  </div>
+                  <div class="col s10">
+                    <p style="color: #88cf02"><a href="/users/userid">Username</a><span class="black-text"> Hello!</span></p>
+                    <a class="chat-trigger" href="#chat-modal">Reply</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="comments-modal" class="modal" style="padding: 2%">
+      <input value="postid">
+      <div>
+        <input type="text" id="addcomment" placeholder="Add Comment">
+        <button class="custom-submit">Submit</button>
+      </div><br><br>
+      <div class="comment">
+        <div class="row post-uploader">
+          <div class="col s2">
+            <img src="../public/uploads/0dde95d7da1c51aa096e5f91e3f28a28.jpg" style="width: 100%; border-radius: 5px">
+          </div>
+          <div class="col s10">
+            <p style="color: #88cf02"><a href="/users/userid">Username</a><br><span style="color: lightgrey;font-size: 12px">2hr</span></p>
+            <br>
+            <div class="comment-text">
+              Nice One
+            </div>
+          </div>
+        </div>
+        <hr>
+      </div>
+    </div>
+    <div class="modal" id="chat-modal" style="padding: 2%"align="center">
+      <input id="message" type="text" style="width: 50%" placeholder="Enter Message"><br>
+      <button class="custom-submit">Submit</button>
+    </div>
+    <div class="modal" id="changepp-modal" align="center">
+      <h5>Change Profile Photo</h5>
+      <form method="post" action="/users/changepp">
+        <input type="file">
+        <button class="custom-submit">Submit</button>
+      </form>
+    </div>
+    <div class="modal" id="changecover-modal" align="center">
+      <h5>Change Cover</h5>
+      <form method="post" action="/users/changecover">
+        <input type="file">
+        <button class="custom-submit">Submit</button>
+      </form>
     </div>
   </body>
 </html>

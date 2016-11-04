@@ -18,4 +18,20 @@ $(document).ready(function(){
   if($('#flash').val() != null){
     Materialize.toast($('#flash').val(), 3000);
   }
+  $(".button-collapse").sideNav();
+  $('.comments-trigger').click(function(){
+    $('#comments-modal').openModal();
+  })
+  $('.chat-trigger').click(function(){
+    $('#chat-modal').openModal();
+  })
+  $('#changepp-trigger').click(function(){
+    $('#changepp-modal').openModal();
+  });
+  $('#changecover-trigger').click(function(){
+    $('#changecover-modal').openModal();
+  });
+  $('#message-trigger').click(function(){
+    $('#message-modal').openModal();
+  })
 })

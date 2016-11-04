@@ -1,0 +1,229 @@
+<html>
+  <head>
+    <title><%=data.name%> Timeline | Konekt</title>
+    <link rel="stylesheet" href="/stylesheets/materialize.min.css">
+    <link rel="stylesheet" href="/stylesheets/style.css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <script src="/javascripts/jquery.min.js"></script>
+    <script src="/javascripts/script.js"></script>
+    <script src="/javascripts/materialize.min.js"></script>
+  </head>
+  <body class="grey-back">
+    <ul id="dropdown1" class="dropdown-content">
+      <li><a href="/users/<%=data._id%>">Profile</a></li>
+      <li><a href="/logout">Logout</a></li>
+    </ul>
+    <nav>
+      <div class="nav-wrapper">
+        <a href="/" class="brand-logo"><img src="/images/konekt.png" style="width: 80%;margin-left: 5px"></a>
+        <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+        <ul class="right hide-on-med-and-down">
+          <li><a class="dropdown-button" href="#!" data-activates="dropdown1"><%=data.name%><i class="material-icons right">arrow_drop_down</i></a></li>
+        </ul>
+        <ul class="side-nav" id="mobile-demo">
+          <li><a href="/profile/<%=data._id%>">Profile</a></li>
+          <li><a href="/logout">Logout</a></li>
+        </ul>
+      </div>
+    </nav>
+    <div class="row">
+      <div class="photos col s10 push-l1 push-m1 push-s1" style="margin-top: 10px;border-radius: 5px;background-image: url(/uploads/<%=data.cover%>)">
+        <div class="overlay1" style="height: 400px">
+          <a href="#" id="changecover-trigger">Change Cover</a>
+        </div>
+        <h5><%=data.name%></h5>
+        <div class="profile-photo z-depth-2 center" style="background-image: url(/uploads/<%=data.photo%>)">
+          <div class="overlay">
+            <a href="#" id="changepp-trigger">Change Profile Picture</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <button class="custom-submit" id="request" style="margin-left: 30%;float: left; display: inline">Request</button>
+    <button class="custom-submit" id="message-trigger" style="margin-right: 28%;float: right; display: inline">Message</button><br><br><br><br><br><br>
+    <div class="row">
+      <div class="col s5 push-s1 push-m1 push-l1" style="margin-top: 5px;">
+        <div class="card horizontal" style="height: 230px">
+          <div class="card-stacked">
+            <div class="card-content row">
+              <div class="col s2">
+                <img src="/uploads/<%=data.photo%>" style="width: 100%; border-radius: 5px">
+              </div>
+              <div class="col s10">
+                <form method="post" action="/users/addnewpost" enctype="multipart/form-data">
+                  <input type="text" name="content" placeholder="What's On Your Mind?">
+                  Image: <input type="file" name="image">
+              </div>
+            </div>
+            <div class="card-action">
+              <button id="post-submit" class="custom-submit right">Post</button>
+              </form>
+            </div>
+          </div>
+        </div>
+        <div class="post">
+          <%if(data.posts.length > 0){%>
+            <%for(var i in data.posts){%>
+              <%if(!data.posts[i]._id || !data.posts[i].content){continue}%>
+              <div class="card">
+                <div class="card-content">
+                  <input value="<%=data.posts[i]._id%>">
+                  <div class="row post-uploader">
+                    <div class="col s2">
+                      <img src="/uploads/<%=data.photo%>" style="width: 100%; border-radius: 5px">
+                    </div>
+                    <div class="col s10">
+                      <p style="color: #88cf02"><a href="/users/<%=data._id%>"><%=data.name%></a><br><span style="color: lightgrey;font-size: 12px">2hr</span></p>
+                    </div>
+                  </div>
+                  <div class="post-body" style="font-size: 130%;margin-left: 100px">
+                    <%=data.posts[i].content%>
+                  </div>
+                  <div class="post-image center">
+                    <%if(data.posts[i].photo){%><img src="/uploads/<%=data.posts[i].photo%>" style="width: 60%"><%}%>
+                  </div><br>
+                  <div class="post-likes-data left" style="color: grey">
+                    <%if(data.posts[i].likes){%><span class="post-likes"><%=data.posts[i].likes.length%></span> Likes<%}%>, <%if(data.posts[i].comments){%><span class="post-coments"><%=data.posts[i].comments.length%></span> Comments<%}%>
+                  </div><br>
+                  <hr>
+                  <img src="/images/thumb-up.png" style="width: 5%" id="post-like"> Like
+                  <a class="comments-trigger" href="#comments-modal"><img src="/images/chat.png" style="width: 5%;margin-left: 10%" id="post-comment"> Comments</a>
+                </div>
+              </div>
+            <%}%>
+          <%} if(data.notifications.length > 0){%>
+            <%for(var i in data.notifications){%>
+              <%if(!data.notifications[i]._id || !data.notifications[i].content){continue}%>
+              <div class="card">
+                <div class="card-content">
+                  <input value="<%=data.notifications[i]._id%>">
+                  <div class="row post-uploader">
+                    <div class="col s2">
+                      <img src="/uploads/<%=data.photo%>" style="width: 100%; border-radius: 5px">
+                    </div>
+                    <div class="col s10">
+                      <p style="color: #88cf02"><a href="/users/<%=data._id%>"><%=data.name%></a><br><span style="color: lightgrey;font-size: 12px">2hr</span></p>
+                    </div>
+                  </div>
+                  <div class="post-body" style="font-size: 130%;margin-left: 100px">
+                    <%=data.notifications[i].content%>
+                  </div>
+                  <div class="post-image center">
+                    <%if(data.notifications[i].photo){%><img src="/uploads/<%=data.notifications[i].photo%>" style="width: 60%"><%}%>
+                  </div><br>
+                  <div class="post-likes-data left" style="color: grey">
+                    <%if(data.notifications[i].likes){%><span class="post-likes"><%=data.notifications[i].likes.length%></span> Likes<%}%>, <%if(data.notifications[i].comments){%><span class="post-coments"><%=data.notifications[i].comments.length%></span> Comments<%}%>
+                  </div><br>
+                  <hr>
+                  <img src="/images/thumb-up.png" style="width: 5%" id="post-like"> Like
+                  <a class="comments-trigger" href="#comments-modal"><img src="/images/chat.png" style="width: 5%;margin-left: 10%" id="post-comment"> Comments</a>
+                </div>
+              </div>
+            <%}%>
+          <%}%>
+        </div>
+      </div>
+      <div class="col s4 push-s2 push-m2 push-l2" style="margin-top: 5px">
+        <div class="row notifications">
+          <div class="card" style="padding: 2%">
+            <img src="/images/world.png" style="width: 10%;"> <span style="font-size: 130%">&nbsp&nbsp&nbspNotifications</span>
+            <hr>
+            <div id="notifications-holder">
+              <%if(data.notifications.length > 0){%>
+                <%for(var i in data.notifications){%>
+                  <%if(!data.notifications[i]._id){continue}%>
+                  <div class="notification">
+                    <div class="row notification-uploader">
+                      <div class="col s2">
+                        <%if(data.notifications[i].photo){%><img src="/uploads/<%=data.notifications[i].photo%>" style="width: 100%; border-radius: 5px"><%}%>
+                      </div>
+                      <div class="col s10">
+                        <p style="color: #88cf02"><a href="/users/<%=data.notifications[i].who%>"><%=data.notifications[i].name%></a><span> <a href="post/<%data.notifications[i]._id%>" style="color: black">Uploaded A New Post postid</a></span></p>
+                      </div>
+                    </div>
+                    <hr>
+                  </div>
+                <%}%>
+              <%} else{%>
+                No Notifications!
+              <%}%>
+            </div>
+          </div>
+        </div>
+        <div class="row chats">
+          <div class="card" style="padding: 2%">
+            <img src="/images/chat (1).png" style="width: 10%;"> <span style="font-size: 130%">&nbsp&nbsp&nbspMessages</span>
+            <hr>
+            <div id="chats-holder">
+              <%if(data.messages.length > 0){%>
+                <%for(var i in data.messages){%>
+                  <%if(!data.messages[i]._id){continue;}%>
+                  <div class="chat">
+                    <div class="row chat-uploader">
+                      <div class="col s2">
+                        <%if(data.messages[i].fromImage){%><img src="/uploads/<%=data.messages[i].fromImage%>" style="width: 100%; border-radius: 5px"><%}%>
+                      </div>
+                      <div class="col s10">
+                        <p style="color: #88cf02"><a href="/users/<%=data.messages[i].from%>"><%=data.messages[i].fromName%></a><span class="black-text"> <%=data.messages[i].content%></span></p>
+                        <a class="chat-trigger" href="#chat-modal">Reply</a>
+                      </div>
+                    </div>
+                  </div>
+                <%}%>
+              <%} else{%>
+                No Messages!
+              <%}%>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="comments-modal" class="modal" style="padding: 2%">
+      <input value="postid">
+      <div>
+        <input type="text" id="addcomment" placeholder="Add Comment">
+        <button class="custom-submit">Submit</button>
+      </div><br><br>
+      <div class="comment">
+        <div class="row post-uploader">
+          <div class="col s2">
+            <img src="/uploads/0dde95d7da1c51aa096e5f91e3f28a28.jpg" style="width: 100%; border-radius: 5px">
+          </div>
+          <div class="col s10">
+            <p style="color: #88cf02"><a href="/users/userid">Username</a><br><span style="color: lightgrey;font-size: 12px">2hr</span></p>
+            <br>
+            <div class="comment-text">
+              Nice One
+            </div>
+          </div>
+        </div>
+        <hr>
+      </div>
+    </div>
+    <div class="modal" id="chat-modal" style="padding: 2%"align="center">
+      <input id="message" type="text" style="width: 50%" placeholder="Enter Message"><br>
+      <button class="custom-submit">Submit</button>
+    </div>
+    <div class="modal" id="changepp-modal" align="center">
+      <h5>Change Profile Photo</h5>
+      <form method="post" action="/users/changepp" enctype="multipart/form-data">
+        <input type="file" name="image">
+        <button class="custom-submit">Submit</button>
+      </form>
+    </div>
+    <div class="modal" id="changecover-modal" align="center">
+      <h5>Change Cover</h5>
+      <form method="post" action="/users/changecover" enctype="multipart/form-data">
+        <input type="file" name="image">
+        <button class="custom-submit">Submit</button>
+      </form>
+    </div>
+    <div class="modal" id="message-modal" align="center" style="padding: 2%">
+      <h5 class="center">Message <%data.name%></h5>
+      <input type="text" id="message" placeholder="Enter Message">
+      <button class="custom-submit">Submit</button>
+    </div>
+  </body>
+</html>

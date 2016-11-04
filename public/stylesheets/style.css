@@ -40,7 +40,7 @@ body {
   border: 1px lightgrey solid;
   box-shadow: none;
 }
-#index-right .custom-submit{
+.custom-submit{
   border: none;
   outline: none;
   padding: 2% 3%;
@@ -48,7 +48,7 @@ body {
   color: white;
   transition: 0.5s;
 }
-#index-right .custom-submit:hover{
+.custom-submit:hover{
   border: none;
   outline: none;
   padding: 2% 3%;
@@ -57,4 +57,59 @@ body {
   background: white;
   border: 1px solid lightgrey;
   transition: 0.3s;
+}
+.grey-back{
+  background: #e9ebee;
+  overflow-y: auto;
+}
+.grey-back a{
+  color: #88cf02;
+}
+nav{
+  background: #88cf02;
+}
+.side-nav a{
+  font-size: 32px;
+  font-weight: lighter;
+}
+.photos{
+  height: 400px;
+}
+.photos{
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+.photos .profile-photo{
+  position: relative;
+  left: 40%;
+  top: -55%;
+  width: 21.5%;
+  height: 180px;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+.overlay, .overlay1    {  background:rgba(0,0,0,.75);
+               text-align:center;
+               padding:45px 0 66px 0;
+               opacity:0;
+               -webkit-transition: opacity .25s ease;
+-moz-transition: opacity .25s ease; height: 180px;}
+
+.profile-photo:hover .overlay{
+               opacity:1;}
+ .photos:hover .overlay1{
+   opacity: 1;
+ }
+ .photos h5{
+   position: relative;
+   top: -55%;
+   color: black;
+   text-align: center;
+ }
+nav a.dropdown-button{
+  color: white!important;
+}
+.custom-submit:focus{
+  background: white;
+  color: #88cf02;
 }

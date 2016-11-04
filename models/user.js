@@ -19,6 +19,7 @@ var User = new mongoose.Schema({
   gender: String,
   dOB: Date,
   photo: String,
+  cover: String,
   notifications: [{
     type: ObjectId,
     ref: 'Post'

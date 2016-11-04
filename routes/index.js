@@ -14,9 +14,23 @@ var passport = require('passport');
 router.get('/', (req, res, next)=>{
   res.render('index', {flash: null});
 })
+router.get('/profile', (req, res, next)=>{
+  User.findById(req.session.user)
+  .populate('posts')
+  .populate('notifications')
+  .populate('messages')
+  .populate('comments')
+  .exec((err, user)=>{
+    res.render('profile', {data: user});
+  })
+})
 
 router.get('/list', (req, res, next)=>{
-  User.find({}, (err, users) => {
+  User.find({})
+  .populate('posts')
+  .populate('notifications')
+  .populate('messages')
+  .populate('comments').exec((err, users) => {
     if(!err){
       res.json(users);
     }
