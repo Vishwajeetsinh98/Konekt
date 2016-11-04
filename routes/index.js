@@ -11,7 +11,11 @@ var User = require(require('path').join(__dirname, '../models/user.js'));
 var passport = require('passport');
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
+router.get('/', (req, res, next)=>{
+  res.render('index', {flash: null});
+})
+
+router.get('/list', (req, res, next)=>{
   User.find({}, (err, users) => {
     if(!err){
       res.json(users);
@@ -26,7 +30,7 @@ router.post('/register', (req, res, next)=>{
     password: req.body.password,
     phone: req.body.phone,
     gender: req.body.gender,
-    dOB: new Date(),
+    dOB: req.body.dOB,
     photo: null
   });
   if(req.file){
@@ -38,7 +42,7 @@ router.post('/register', (req, res, next)=>{
           error.status = 500;
           next(error);
         } else{
-            res.send('Registered');
+            res.render('index', {flash: 'Registered, Login To Continue'});
           }
       });
   } else{

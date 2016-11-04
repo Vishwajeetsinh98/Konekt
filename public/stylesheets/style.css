@@ -1,8 +1,60 @@
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  font: 14px "Montserrat";
+  overflow: hidden;
 }
-
-a {
-  color: #00B7FF;
+#index-left{
+  background: #88cf02;
+  height: 100vh;
+  text-align: center;
+}
+#index-left img{
+  width: 35%;
+}
+#index-left p{
+  color: white;
+  font-size: 130%;
+}
+#index-right{
+  padding: 3%;
+}
+.tabs .tab a, .tabs .tab a.active, .tabs .tab a.active:focus{
+  color: #88cf02;
+}
+.tabs .indicator{
+  background: #88cf02;
+}
+#index-right form{
+  margin-top: 50px;
+}
+#index-right .custom-input{
+  border: 1px lightgrey solid;
+  text-indent: 5px;
+  width: 80%;
+}
+#index-right .custom-input-no-border{
+  text-indent: 5px;
+  width: 80%;
+  margin-left: 10%;
+}
+#index-right .custom-input:focus{
+  border: 1px lightgrey solid;
+  box-shadow: none;
+}
+#index-right .custom-submit{
+  border: none;
+  outline: none;
+  padding: 2% 3%;
+  background: #88cf02;
+  color: white;
+  transition: 0.5s;
+}
+#index-right .custom-submit:hover{
+  border: none;
+  outline: none;
+  padding: 2% 3%;
+  box-shadow: 2px 2px 2px lightgrey;
+  color: #88cf02;
+  background: white;
+  border: 1px solid lightgrey;
+  transition: 0.3s;
 }
